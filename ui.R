@@ -8,7 +8,7 @@ sidebar <- dashboardSidebar(
              menuSubItem("PVCA", tabName = "pvca", icon = icon("angle-left")),
              menuSubItem("UMAP", tabName = "umap", icon = icon("angle-left"))
              ),
-    menuItem("Elimination", icon = icon("line-chart"), tabName = "elimination",
+    menuItem("Adjustment", icon = icon("line-chart"), tabName = "elimination",
              badgeColor = "blue",
              menuSubItem("ComBat", tabName = "combat", icon = icon("angle-left")),
              menuSubItem("RandomForest", tabName = "rf", icon = icon("angle-left"))
@@ -204,9 +204,6 @@ the file according to its format. `Comma` for .csv, `Semicolon`, `Comma` or
 `Tab` for flat text file. Do the same with sample information/annotation file.
 Quantile normalitztion is optional for you to do with data matrix only.</span>&nbsp;
 </p>
-<p class="MsoNormal">
-	<img src="help/dataInput.png" alt="Data input" />
-</p>
 <h3>
 	<span>Batch effect estimation, visualization and
 correction</span>
@@ -237,7 +234,7 @@ user to down-load by improved ComBat and random forest.</span>
             h3("Author:"),
             HTML("Tiansheng Zhu; tszhu @ fudan.edu.cn"),
             h3("License:"),            
-            HTML("Batch Server is an open-source software implemented in pure R language and the source code is freely available https://github.com/tszhu/webBatch. 
+            HTML("Batch Server is an open-source software implemented in pure R language and the source code is freely available at https://github.com/zhutiansheng/batch_server. 
 Now Batch Server is supported by both zhou’s lab of Fudan University (admis.fudan.edu.cn) and guomics lab of Westlake University (www.guomics.com). The software is published by ''")         
     )
   )

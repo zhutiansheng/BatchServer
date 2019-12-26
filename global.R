@@ -18,6 +18,7 @@ library(preprocessCore)
 #library(bladderbatch)#testdata
 #import user defined functions
 source('src/MyCombat.R')
+environment(my_it.sol) <- asNamespace('sva')
 environment(combat) <- asNamespace('sva')
 source('src/MyPVCA.R')
 source('src/MyPriorDraw.R')

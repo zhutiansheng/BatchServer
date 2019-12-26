@@ -220,7 +220,7 @@ function(input, output,session) {
   
   drawUmap<-eventReactive(input$umap_effect_name,{
     mydf<-data.frame(getUmap())
-    mydf$label<-getSampleInfo()[rownames(getMyd()),input$umap_effect_name]
+    mydf$label<-as.character(getSampleInfo()[rownames(getMyd()),input$umap_effect_name])
     p<-ggplot(mydf,aes(x=X1, y=X2, colour=label)) + geom_point(size=3)+
       theme(  #panel.grid.major = element_blank(),
         #panel.grid.minor = element_blank(),
@@ -284,7 +284,7 @@ function(input, output,session) {
   },ignoreNULL = T,ignoreInit =T)
   
   output$combat_log<-renderText({
-    print(str(eliminateBF()))
+    #print(str(eliminateBF()))
     if(length(eliminateBF())<1)
       eliminateBF()
     else {

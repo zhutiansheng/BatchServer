@@ -1,3 +1,35 @@
+my_aprior<-function(gamma.hat){
+  m <- mean(gamma.hat,na.rm=T)
+  s2 <- var(gamma.hat,na.rm = T)
+  (2 * s2 + m^2)/s2
+}
+my_bprior<-function(gamma.hat) 
+{
+  m <- mean(gamma.hat,na.rm=T)
+  s2 <- var(gamma.hat,na.rm = T)
+  (m * s2 + m^3)/s2
+}
+my_it.sol<-function (sdat, g.hat, d.hat, g.bar, t2, a, b, conv = 1e-04) 
+{
+  n <- rowSums(!is.na(sdat))
+  g.old <- g.hat
+  d.old <- d.hat
+  change <- 1
+  count <- 0
+  while (change > conv) {
+    g.new <- postmean(g.hat, g.bar, n, d.old, t2)
+    sum2 <- rowSums((sdat - g.new %*% t(rep(1, ncol(sdat))))^2, 
+                    na.rm = TRUE)
+    d.new <- postvar(sum2, n, a, b)
+    change <- max(abs(g.new - g.old)/g.old, abs(d.new - d.old)/d.old,na.rm = T)
+    g.old <- g.new
+    d.old <- d.new
+    count <- count + 1
+  }
+  adjust <- rbind(g.new, d.new)
+  rownames(adjust) <- c("g.star", "d.star")
+  adjust
+}
 combat<-function (dat, batch, mod = NULL, par.prior="auto", fit.method="mle",  
           mean.only = FALSE, ref.batch = NULL, BPPARAM = bpparam("SerialParam")) 
 {
@@ -130,8 +162,8 @@ combat<-function (dat, batch, mod = NULL, par.prior="auto", fit.method="mle",
   }
   gamma.bar <- rowMeans(gamma.hat)
   t2 <- rowVars(gamma.hat)
-  a.prior <- apply(delta.hat, 1, aprior)
-  b.prior <- apply(delta.hat, 1, bprior)
+  a.prior <- apply(delta.hat, 1, my_aprior)
+  b.prior <- apply(delta.hat, 1, my_bprior)
   
   ####test norm distribution
   isNorm<-function(d,bar,t2){
@@ -148,19 +180,18 @@ combat<-function (dat, batch, mod = NULL, par.prior="auto", fit.method="mle",
     else return(TRUE)
   }
   ####test inverse gamma distribution
-  isInverseGamma<-function(d,a,b){
-    tryCatch({   
-      f2 <- fitdist(d, "invgamma", start=list(alpha=a, beta = b))
-      g2 <- gofstat(f2)
-      },
-      error = function(e) {
-                   return(FALSE)
-                 })
-    if(g2$kstest!="not rejected"){
+  isInverseGamma <- function(d, a, b) {
+    f2 <- try(fitdist(d, "invgamma", start = list(alpha = a, beta = b)), silent = T)
+    if ("try-error" %in% class(f2))
+      return(FALSE)
+    g2 <- try(gofstat(f2), silent = T)
+    if ("try-error" %in% class(g2))
+      return(FALSE)
+    if (g2$kstest != "not rejected") {
       return(FALSE)
     }
-    else return(TRUE)
-
+    else
+      return(TRUE)
   }
   switch (par.prior,
           "noparameter" = passTest<-lapply(1:n.batch,function(x)return(FALSE)),
@@ -185,7 +216,7 @@ combat<-function (dat, batch, mod = NULL, par.prior="auto", fit.method="mle",
         delta.star <- rep(1, nrow(s.data))
       }
       else {
-        temp <- it.sol(s.data[, batches[[i]]], gamma.hat[i, 
+        temp <- my_it.sol(s.data[, batches[[i]]], gamma.hat[i, 
                                                          ], delta.hat[i, ], gamma.bar[i], t2[i], a.prior[i], 
                        b.prior[i])
         gamma.star <- temp[1, ]
