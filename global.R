@@ -15,6 +15,8 @@ library(Biobase)
 library(pvca)
 library(randomForest)
 library(preprocessCore)
+library(openxlsx)
+
 #library(bladderbatch)#testdata
 #import user defined functions
 source('src/MyCombat.R')
