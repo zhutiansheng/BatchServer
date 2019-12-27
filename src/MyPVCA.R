@@ -31,6 +31,8 @@ pieDraw<-function(pvcaobj){
   df$percent<-round(df$dat/sum(df$dat)*100,3)
   df$Source<-paste0(Source," (",df$percent,"%)")
   df<-df[order(df$percent),]
+  df$Source<-ordered(df$Source,levels=df$Source)
+  df$Source<-ordered(df$Source,levels=df$Source)
   p<-ggplot(df, aes(x = "", weight =percent , fill = Source)) +
     geom_bar(width = 1) +
     coord_polar(theta = "y") + xlab('') + ylab('') +
