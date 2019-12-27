@@ -98,7 +98,17 @@ body <- dashboardBody(
     tabItem(tabName = "umap",            
             h3("UMAP"),
             h4("Uniform Manifold Approximation and Projection (UMAP) is a dimension reduction technique that can be used for visualisation similarly to t-SNE, but also for general non-linear dimension reduction."),      
-            sliderInput("n_neighbors", "number of nearest neighbors:",
+            hr(),
+            radioButtons("missing_replace",
+              "Missing value replacement",
+              choices = c(
+                "None" = "none",
+                "1" = '1',
+                '0' = "0",
+                "10% of minimum" = '0.1',
+                "minimum" = "minimum"
+              ),inline = TRUE,selected = "0"),
+	    sliderInput("n_neighbors", "number of nearest neighbors:",
                         min = 1, max = 100,
                         value = 15),
             radioButtons("metric", "distances method",
