@@ -97,7 +97,7 @@ body <- dashboardBody(
     ),
     tabItem(tabName = "umap",            
             h3("UMAP"),
-            h4("Uniform Manifold Approximation and Projection (UMAP) is a dimension reduction technique that can be used for visualisation similarly to t-SNE, but also for general non-linear dimension reduction."),      
+            h4("Uniform Manifold Approximation and Projection (UMAP) is a dimension reduction technique that can be used for visualisation similarly to t-SNE, but also for general non-linear dimension reduction. Please note that NA is not allowed in data matrix in umap."),      
             hr(),
             radioButtons("missing_replace",
               "Missing value replacement",
