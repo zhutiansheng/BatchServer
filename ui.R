@@ -31,7 +31,9 @@ body <- dashboardBody(
                       multiple = FALSE,
                       accept = c("text/csv",
                                  "text/comma-separated-values,text/plain",
-                                 ".csv")),
+                                 ".csv",
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          ".xlsx")),
             # Input: Checkbox if file has header ----
             #checkboxInput("header", "Header", TRUE),
             
@@ -50,7 +52,9 @@ body <- dashboardBody(
                       multiple = FALSE,
                       accept = c("text/csv",
                                  "text/comma-separated-values,text/plain",
-                                 ".csv")),
+                                 ".csv",
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          ".xlsx")),
             # Input: Checkbox if file has header ----
             #checkboxInput("sample_header", "Header", TRUE),
             
