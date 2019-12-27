@@ -39,7 +39,8 @@ body <- dashboardBody(
             radioButtons("sep", "Separator",
                          choices = c(Comma = ",",
                                      Semicolon = ";",
-                                     Tab = "\t"),
+                                     Tab = "\t",
+                                     'xls/xlsx' = "xlsx"),
                          selected = ",",inline = T),
             checkboxInput("qn", "Quantile normalization", FALSE),
             # Horizontal line ----
@@ -57,7 +58,8 @@ body <- dashboardBody(
             radioButtons("sample_sep", "Separator",
                          choices = c(Comma = ",",
                                      Semicolon = ";",
-                                     Tab = "\t"),
+                                     Tab = "\t",
+                                     'xls/xlsx' = "xlsx"),
                          selected = ",",inline = T),
               
             # Horizontal line ----
