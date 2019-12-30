@@ -1,6 +1,6 @@
 options(stringsAsFactors = F)
 options(encoding = 'UTF-8')
-options(shiny.maxRequestSize=500*1024^2)
+options(shiny.maxRequestSize=5*1024^3)
 set.seed(12345)
 #load library
 library(shiny)
