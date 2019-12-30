@@ -44,7 +44,17 @@ body <- dashboardBody(
                                      Tab = "\t",
                                      'xls/xlsx' = "xlsx"),
                          selected = ",",inline = T),
-            checkboxInput("qn", "Quantile normalization", FALSE),
+          radioButtons("missing_replace_input",
+                       "Missing value replacement",
+                       choices = c(
+                         "None" = "none",
+                         "1" = '1',
+                         '0' = "0",
+                         "10% of minimum" = '0.1',
+                         "minimum" = "minimum"
+                       ),inline = TRUE,selected = "0"),  
+          checkboxInput("qn", "Quantile normalization", FALSE),
+            
             # Horizontal line ----
             tags$hr(),
             # Input: Select a file ----
