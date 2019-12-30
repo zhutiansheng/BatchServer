@@ -37,3 +37,14 @@ dataCheck<-function(d){
   }
   return(error)
 }
+missingValueReplace<-function(d,v){
+  if(v!="none"){
+    switch(v,
+           "1" = d[is.na(d)]<-1,
+           "0" = d[is.na(d)]<-0,
+           minimum = d[is.na(d)]<-min(d,na.rm = T),
+           "0.1" = d[is.na(d)]<-0.1*min(d,na.rm = T)
+    )  
+  }
+  return(d)
+}
