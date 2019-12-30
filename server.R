@@ -343,7 +343,7 @@ function(input, output,session) {
                    incProgress(1/10)
                    print("random forest start")
                    label<-getSampleInfo()[,input$batch_effect_name_rf]
-                   dat<-data.frame(getMyd())
+                   dat<-data.frame(getMyd(),check.names = F)
                    #print(head(dat))
                    dat$label<-as.factor(label)
                    result<-myRF(dat,input$ntree,input$nodesize)
@@ -382,9 +382,9 @@ function(input, output,session) {
       paste("SubSet", Sys.Date(), ".csv", sep = "")
     },
     content = function(file) {
-      features_remain<-setdiff(rownames(getMyd()),getImpFeature()$features[1:input$topN])
+      features_remain<-setdiff(colnames(getMyd()),getImpFeature()$features[1:input$topN])
       
-      write.csv(getMyd()[features_remain,],file,row.names = T,quote = F,na="")
+      write.csv(t(getMyd()[,features_remain]),file,row.names = T,quote = F,na="")
     }
   )
   ######test data download
