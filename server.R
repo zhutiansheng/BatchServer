@@ -68,6 +68,8 @@ function(input, output,session) {
       stop()
     }
     df2<-myd[-1]
+    df2<-missingValueReplace(df2,input$missing_replace_input)
+    
     if(input$qn){
       df2<-try(normalize.quantiles(as.matrix(df2)),silent = T)
       if("try-error" %in% class(df2)){
@@ -199,7 +201,7 @@ function(input, output,session) {
                    incProgress(1/10)
     print("umap start")
     myd<-getMyd()
-    myd[is.na(myd)]<-0
+    myd<-missingValueReplace(myd,input$missing_replace)
     myumap<-try(umap(myd,n_neighbors=input$n_neighbors),silent = T)
     if("try-error" %in% class(myumap)){
       showModal(modalDialog(
