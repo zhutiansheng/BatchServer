@@ -2,7 +2,7 @@
 
 ![image.png](architecture.png)
 	
-#### It's mainly based on five R packages:
+#### It's mainly based on following R packages:
 > + `pvca`:  For batch effects evaluation
 > + `umap`, `ggplot2`, `plotly`, :  For batch effects visualization
 > + `sva`:  For batch effects correction (improved version)
