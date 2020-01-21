@@ -1,22 +1,31 @@
-# ProteomeExpert-QC
-
-## Parameters
-### QC
-
-'QC' allow to show the quality of your protein matrix that measured by missing value ratio and reproducibility (Pearson Correlation). The objective protein matrix data is requiried to be uploaded in the step of 'Data Console - select your protein file' before starting this step. `Select matrix` select uploadedProMatrix as the matrix to be analyzed, and `Select your interesting column name` as your interesting attribute which will count the number of proteins hierarchy accoroding to the non missing ratio of each protein. Then choose `MissingValueExplore` and `Reproducibility` as the modules you want to process.
-`MissValueExplore` module design to explore missing data distributions, focusing on numeric missing data. The report show missing data distributions in different tissue/disease types and show distributions in each row (proteins) and each column (samples).
-`Reproducibility` module design to explore correlations between each sample use Pearson Correlation.
-
 ## Tutorial
 
-1. Select `uploadedProMatrix` as the matrix to be analyzed.
-2. Select `MissValueExplore` and `Reproducibility` as modules you want to process. click on `Submit`, results would be shown on the right side on the page.
+### Data input
+Users are required to prepare and upload two files: a data file and a sample information file. The format of these files can be tab-delimited, space-separated, comma-delimited or Excel file. BatchServer also provides test data files (see above section). Users can upload these two files in the `Data Input` menu, then click the `Submit` button. The data read module will read, process, and store the files for subsequent usage.
+
+### Batch effect estimation, visualization and correction
+After uploaded both data and sample information files. Users are advised to evaluate whether their data have batch effects using PVCA or UMAP equipped with the online server. Both methods can show the visualized results of batch effects. If the batch effect is heavy, the next step is to remove it using the improved ComBat or random forest.
+
+### Data output
+Users could examine and download the result figures of batch effect evaluation to evaluate the batch effects from the figures by manual inspection. The batch effect corrected data obtained by the improved ComBat and random forest are also provided for users to download.
+
+### Example
+Input page
 
 ![image.png](rf.png)
 
-![image.png](umap.png)
-
-The screenshot of reproducibility
+The screenshot of using PVCA
 
 ![image.png](pvca.png)
 
+The screenshot of using UMAP
+
+![image.png](umap.png)
+
+Parameters settings and result of using improved ComBat
+
+![image.png](combat.png)
+
+Parameters settings and result of using random forest
+
+![image.png](rf.png)
