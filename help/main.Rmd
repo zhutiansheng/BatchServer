@@ -7,7 +7,6 @@
 > + `umap`, `ggplot2`, `plotly`, :  For batch effects visualization
 > + `sva`:  For batch effects correction (improved version)
 > + `fitdistrplus`, `extraDistr`:  For goodness-of-fit test
-> + `randomForest`:  For random forest algorithm
 
 #### Which is further wrapped by [`R/Shiny`]('http://shiny.rstudio.com/'). 
 
