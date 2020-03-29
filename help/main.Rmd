@@ -4,7 +4,7 @@
 	
 #### It's mainly based on following R packages:
 > + `pvca`:  For batch effects evaluation
-> + `umap`, `ggplot2`, `plotly`, :  For batch effects visualization
+> + `umap`, `ggplot2`, `plotly`:  For batch effects visualization
 > + `sva`:  For batch effects correction (improved version)
 > + `fitdistrplus`, `extraDistr`:  For goodness-of-fit test
 
