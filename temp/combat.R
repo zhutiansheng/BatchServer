@@ -19,7 +19,7 @@ prior.plots = T
 mean.only = FALSE
 BPPARAM = bpparam("SerialParam")
 
-result<-combat(dat, batch, mod, par.prior="auto", fit.method="mle", 
+result<-combat(dat, batch, mod, par.prior="parameter", fit.method="mle", 
                   mean.only, ref.batch = NULL, BPPARAM = bpparam("SerialParam")) 
 res<-result$bayesdata
 write.csv(res,"f:/abc.csv",row.names = T,quote = F,na="")

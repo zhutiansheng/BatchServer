@@ -35,6 +35,12 @@ dataCheck<-function(d){
   else if(sum(duplicated(d[,1]))>0){
     error="Error: The first column should be unique sample id/name!"
   }
+  else{
+    cna<-apply(d[,-1], 1, function(x){sum(is.na(x))})
+    if(max(cna)==ncol(d[,-1])){
+      error = "Error: There exists feature (eg. prottein or gene) with all values are NA in the data matrix"
+    }
+  }
   return(error)
 }
 missingValueReplace<-function(d,v){
