@@ -83,7 +83,19 @@ function(input, output,session) {
       df2<-data.frame(df2)
       colnames(df2)<-colnames(myd[-1])
     }
-
+    if(input$log2){
+      df2<-try(log2(as.matrix(df2)),silent = T)
+      if("try-error" %in% class(df2)){
+        showModal(modalDialog(
+          title = "An error occur",
+          df2[1],
+          easyClose = TRUE
+        ))
+        stop("error")
+      }
+      df2<-data.frame(df2)
+      colnames(df2)<-colnames(myd[-1])
+    }
     rownames(df2)<-myd[,1]
     df2<-t(df2)
     incProgress(9/10,"Data read completed")

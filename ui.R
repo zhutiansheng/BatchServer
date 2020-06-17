@@ -54,8 +54,8 @@ body <- dashboardBody(
                          "10% of minimum" = '0.1',
                          "minimum" = "minimum"
                        ),inline = TRUE,selected = "0"),  
-          checkboxInput("qn", "Quantile normalization", FALSE),
-            
+          checkboxInput("qn", "Quantile normalization", TRUE),
+          checkboxInput("log2", "Log2 transform", TRUE), 
             # Horizontal line ----
             tags$hr(),
             # Input: Select a file ----
