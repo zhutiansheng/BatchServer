@@ -331,7 +331,18 @@ function(input, output,session) {
                     choices = names(eliminateBF()$additiondata$passTest),
                     selected = NULL),
         plotOutput("prior_plot"),
-        verbatimTextOutput("prior_plot_note")
+        verbatimTextOutput("prior_plot_note"),
+        hr(),
+        h4("Batch effect corrected data:"),
+        radioButtons("treatMinusV",
+                     "Minus replacement",
+                     choices = c(
+                       "Keep" = "keep",
+                       "1" = '1',
+                       '0' = "0",
+                       "NA" = 'NA'
+                     ),inline = TRUE,selected = "0"),
+        checkboxInput("asOrgi", "Replace values with NAs as the original data matrix", TRUE),
       )
     }
   })
@@ -346,7 +357,24 @@ function(input, output,session) {
       paste("BatchFree", Sys.Date(), ".csv", sep = "")
     },
     content = function(file) {
-      write.csv(eliminateBF()$bayesdata,file,row.names = T,quote = F,na="")
+resData<-eliminateBF()$bayesdata
+      switch(input$treatMinusV,
+             'keep'=,
+             '1'=resData[resData<0]<-1,
+             '0'=resData[resData<0]<-0,
+             'NA'=resData[resData<0]<-NA
+      )
+      if(input$asOrgi){
+        if(input$sep=="xlsx"){
+          myd2 <- openxlsx::read.xlsx(input$myd$datapath)      
+        }else{
+          myd2<-read.table(input$myd$datapath,sep = input$sep,header = T,quote = "",encoding = "UTF-8",check.names = F)  
+        }  
+        df2<-myd2[-1]
+        #df.t<-t(df2)
+        resData[is.na(df2)]<-NA
+      }
+      write.csv(resData,file,row.names = T,quote = F,na="")
     }
   )
   #######################################################################33
