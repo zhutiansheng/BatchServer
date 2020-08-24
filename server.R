@@ -342,7 +342,7 @@ function(input, output,session) {
                        '0' = "0",
                        "NA" = 'NA'
                      ),inline = TRUE,selected = "0"),
-        checkboxInput("asOrgi", "Replace values with NAs as the original data matrix", TRUE),
+        checkboxInput("asOrgi", "Replace values with NAs as the original data matrix", TRUE,width='50%'),
       )
     }
   })
