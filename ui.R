@@ -85,7 +85,7 @@ body <- dashboardBody(
     
     tabItem(tabName = "pvca",
             h3("PVCA"),
-            h4('PVCA assess the batch sourcs by fitting all "sources" as random effects including two-way interaction terms in the Mixed Model(depends on lme4 package) to selected principal components, which were obtained from the original data correlation matrix. Pierre Bushel (2019). pvca: Principal Variance Component Analysis (PVCA). R package version 1.24.0.'),
+            h4('PVCA assess the batch sources by fitting all "sources" as random effects including two-way interaction terms in the Mixed Model(depends on lme4 package) to selected principal components, which were obtained from the original data correlation matrix. Pierre Bushel (2019). pvca: Principal Variance Component Analysis (PVCA). R package version 1.24.0.'),
             selectInput("pvca_effect_name","Select Contributing Effect Column Name(s)",
                         choices = effect_name,multiple = T),
             sliderInput("pvca_threshold", "Set the percentile value of the minimum amount of the variabilities that the selected principal components need to explain",
