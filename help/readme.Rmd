@@ -1,28 +1,70 @@
 ## Tutorial
 
 ### Data input
-Users are required to prepare and upload two files: a data file and a sample information file. The format of these files can be tab-delimited, space-separated, comma-delimited or Excel file. BatchServer also provides test data files (see above section). Users can upload these two files in the `Data Input` menu, then click the `Submit` button. The data read module will read, process, and store the files for subsequent usage.
+Users are required to prepare and upload two files: a data file and a sample information file. The format of these files can be tab-delimited, space-separated, comma-delimited or Excel file. BatchServer also provides test data files (see above section). Users can upload these two files in the `Data Input` menu, then click the `Submit` button. The data read module will read, process, and store the files for subsequent usage.<p>
+
+**Notice:**
+
+- Missing value imputation
+
+We offer multiple means to impute missing values, when needed. While these methods have worked well for our test data, these methods may be surpassed by other methods in certain data sets. Users may refer to a recently compiled missing value imputation tool kit provided in a web server tool NAguideR (http://www.omicsolution.org/wukong/NAguideR/).
+
+- Quantile normalization
+
+In statistics, quantile normalization is a technique for making two distributions identical in statistical properties. Quantile normalization is data handling technique that works well on microarrays or proteomics in practise.
+
+- Log2 transform
+
+The general reason to log-transform data (log2 or otherwise) is to make variation similar across orders of magnitude. This isn't really a must, but usually makes things more convenient. 
+
 
 ### Batch effect estimation, visualization and correction
 After uploaded both data and sample information files. Users are advised to evaluate whether their data have batch effects using PVCA or UMAP equipped with the online server. Both methods can show the visualized results of batch effects. If the batch effect is heavy, the next step is to remove it using the improved ComBat.
 
+
+**Notice:**
+
+- PVCA & UMAP
+
+In most cases the user does not need to change the parameter Settings. 
+
+- Balanced batch-group design
+
+If the batch-group design is balanced, ComBat approach removes most variation attributable to the batch effect, increasing statistical power. However, if unbalanced, the batch variation is underestimated, and corrected data still retain batch variation, reducing the statistical power.
+
+- ComBat
+
+In BatchServer we introduced autoComBat, a modified version of ComBat, which is the most widely adopted tool for batch effect correction. The autoComBat could automatly determine whether to use the parametric bayes or nonparametric bayes method using Kolmogorov-Smirnov Goodness of Fit Test. The goal of the ComBat is to remove all unwanted sources of variation while protecting the contrasts due to the primary variables included in surrogate variables. This leads to the identification of features that are consistently different between groups, removing all common sources of latent variation.
+
+Surrogate variables are covariates constructed directly from high-dimensional data (like gene expression/RNA sequencing/methylation/brain imaging data) that can be used in subsequent analyses to adjust for unknown, unmodeled, or latent sources of noise. Therefore if sample sizes are large enough, it is recommended to model all available covariates expected to be significant. Without setting the surrogate variables will only remove the effect of knowing batch variables. All sources of latent biological variation will remain in the data using this approach.
+
+The ComBat from sva package has a parameter for only adjusts the mean of the batch effects across batches (default adjusts the mean and variance). This option is recommended for cases where milder batch effects are expected (so no need to adjust the variance), or in cases where the variances are expected to be different across batches due to the biology. This option is recommended set 'yes' for cases where milder batch effects are expected (so no need to adjust the variance), or in cases where the variances are expected to be different across batches due to the biology. For example,suppose a researcher wanted to project a knock-down genomic signature to be projected into the TCGA data. In this case, the knockdowns samples may be very similar to each other (low variance) whereas the signature will be at varying levels in the TCGA patient data. Thus the variances may be very different between the two batches (signature perturbation samples vs TCGA), so only adjusting the mean of the batch effect across the samples might be desired in this case.
+
 ### Data output
 Users could examine and download the result figures of batch effect evaluation to evaluate the batch effects from the figures by manual inspection. The batch effect corrected data obtained by the improved ComBat is also provided for users to download.
 
+### References
+
+1. Tomasz Konopka (2020). umap: Uniform Manifold Approximation and Projection. R package version 0.2.5.0. https://CRAN.R-project.org/package=umap
+2. Pierre Bushel (2018). pvca: Principal Variance Component Analysis (PVCA). R package version 1.22.0.
+3. Jeffrey T. Leek, W. Evan Johnson, Hilary S. Parker, Elana J. Fertig, Andrew E. Jaffe, John D. Storey, Yuqing Zhang and Leonardo Collado Torres (2019). sva: Surrogate Variable Analysis. R package version 3.30.1.
+4. Johnson, W. E., Li, C. & Rabinovic, A. Adjusting batch effects in microarray expression data using empirical Bayes methods. Biostatistics 8, 118-127, doi:10.1093/biostatistics/kxj037 (2007).
+5. Zhang, Y., Jenkins, D. F., Manimaran, S., Johnson, W. E. (2018). Alternative empirical Bayes models for adjusting for batch effects in genomic studies. BMC bioinformatics, 19 (1), 262.
+
+
 ### Example
-Input page
+#### - Input data
 
 ![image.png](dataInput.png)
 
-The screenshot of using PVCA
+#### - The screenshot of using PVCA
 
 ![image.png](pvca.png)
 
-The screenshot of using UMAP
+#### - The screenshot of using UMAP
 
 ![image.png](umap.png)
 
-Parameters settings and result of using improved ComBat
+#### - Parameters settings and result of using improved ComBat
 
 ![image.png](combat.png)
-
