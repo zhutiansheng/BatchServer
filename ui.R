@@ -13,7 +13,7 @@ sidebar <- dashboardSidebar(
              menuSubItem("ComBat", tabName = "combat", icon = icon("angle-left"))
              #,menuSubItem("RandomForest", tabName = "rf", icon = icon("angle-left"))
              ),
-    menuItem("ReadMe", tabName = "readme",badgeLabel = "help", badgeColor = "red", icon=icon("mortar-board")),
+    menuItem("Readme", tabName = "readme",badgeLabel = "help", badgeColor = "red", icon=icon("mortar-board")),
     menuItem("About", tabName = "about", icon = icon("question"))
   )
 )
@@ -28,7 +28,7 @@ body <- dashboardBody(
     
     tabItem(tabName = "dataInput",
             # Input: Select a file ----
-            fileInput("myd", "Please Choose Your Data File",
+            fileInput("myd", "Please choose your data file",
                       multiple = FALSE,
                       accept = c("text/csv",
                                  "text/comma-separated-values,text/plain",
@@ -59,7 +59,7 @@ body <- dashboardBody(
             # Horizontal line ----
             tags$hr(),
             # Input: Select a file ----
-            fileInput("sample_info", "Please Choose Your Sample Information File",
+            fileInput("sample_info", "Please choose your sample information file",
                       multiple = FALSE,
                       accept = c("text/csv",
                                  "text/comma-separated-values,text/plain",
@@ -86,7 +86,7 @@ body <- dashboardBody(
     tabItem(tabName = "pvca",
             h3("PVCA"),
             h4('PVCA assess the batch sources by fitting all "sources" as random effects including two-way interaction terms in the Mixed Model(depends on lme4 package) to selected principal components, which were obtained from the original data correlation matrix. Pierre Bushel (2019). pvca: Principal Variance Component Analysis (PVCA). R package version 1.24.0.'),
-            selectInput("pvca_effect_name","Select Contributing Effect Column Name(s)",
+            selectInput("pvca_effect_name","Select contributing effect column name(s)",
                         choices = effect_name,multiple = T),
             sliderInput("pvca_threshold", "Set the percentile value of the minimum amount of the variabilities that the selected principal components need to explain",
                         min = 0, max = 1,
@@ -149,20 +149,23 @@ body <- dashboardBody(
             actionButton("umap_submit", "Calculate", class = "btn-primary"),
             verbatimTextOutput("umap_note"),
             tags$hr(),
-            selectInput("umap_effect_name","Select Contributing Effect Column Name(s)",
+            selectInput("umap_effect_name","Select contributing effect column name(s)",
                         choices = effect_name,multiple = F),
             plotlyOutput("draw_umap"),
             uiOutput("umap_ui")
     ),
     tabItem(tabName = "combat",
-            h3("Description:"),
+            h3("ComBat"),
             h4("The ComBat function adjusts for known batches using an empirical Bayesian
 framework. So known batch variable is required in your dataset. Here you should pay attention to the [parametric estimate method] choice, which was improved compare to the original ComBat method. The option [automatic] will automatically decide to set parametric estimate method to parametric or nonparametric according to the data distribution."),
             hr(),
-            selectInput("batch_effect_name","Select Known Batch Effect Column Name",
+            selectInput("batch_effect_name","Select known batch effect column name",
                         choices = NULL,multiple = F),
-            selectInput("adjust_variables","Select adjustment variable(s)",
-                        choices = NULL,multiple = T),
+            
+            tags$div(title="Surrogate variables are covariates constructed directly from high-dimensional data (like gene expression/RNA sequencing/methylation/brain imaging data) that can be used in subsequent analyses to adjust for unknown, unmodeled, or latent sources of noise.",
+            selectInput("adjust_variables","Select surrogate variable(s)",
+                        choices = NULL,multiple = T)
+            ),
             radioButtons("par.prior", "Parametric estimate method",
                          choices = c(automatic= "auto",
                                      parameter = "parameter",
@@ -200,19 +203,21 @@ mean of the batch effects across batches (default adjusts the mean and variance)
     #         uiOutput("rf_ui")
     # ),
     tabItem(tabName = "readme",
-            h3("Test data download"),
+            h1("Readme"),
+            h4("Batch effects are unwanted data variations that may obscure biological signals, leading to bias or errors in subsequent data analyses. Effective evaluation and elimination of batch effects are necessary for omics data analysis. In order to facilitate the evaluation and correction of batch effects, here we present BatchSever, an open-source R/Shiny based user-friendly interactive graphical web platform for batch effects analysis. As the autohrs of original ComBat have extensively investigated, if the experiment has not been properly designed, or if the batch design information is missing, no effective batch correction could be performed. Unbalanced batch-group design and inappropriate missing value imputation will pose challenges to effective batch effect correction."),
+            h2("Test data download"),
+            downloadButton("testData_download", "dataMatrix", class = "btn-primary"),
             downloadButton("sampleData_download", "sampleInfo", class = "btn-primary"),
-           downloadButton("testData_download", "dataMatrix", class = "btn-primary"),
 
             includeMarkdown("help/readme.Rmd")
 
             ),
     tabItem(tabName = "about",
-            h3("Software Author:"),
+            h3("Software author:"),
             HTML("Tiansheng Zhu; tszhu @ fudan.edu.cn"),
             h3("License:"),            
-            HTML("Batch Server is an open-source software implemented in pure R language and the source code is freely available at https://github.com/zhutiansheng/batch_server. 
-Now Batch Server is supported by both zhou’s lab of Fudan University (admis.fudan.edu.cn) and guomics lab of Westlake University (www.guomics.com). The software is published by ''")         
+            HTML("BatchServer is an open-source software implemented in pure R language and the source code is freely available at https://github.com/zhutiansheng/BatchServer. 
+Now Batch Server is supported by both school of computer science of Fudan University (zhou's lab: admis.fudan.edu.cn) and school of life sciences of Westlake University (guo's lab: www.guomics.com). The software is published by ''")         
     )
   )
 )
