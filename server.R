@@ -31,6 +31,21 @@ function(input, output,session) {
     )
   })
   
+    output$myImage <- renderImage({
+    # A temp file to save the output.
+    # This file will be removed later by renderImage
+    outfile <- normalizePath(file.path('help/architecture.png'))
+    
+    
+    
+    # Return a list containing the filename
+    list(src = outfile,
+         contentType = 'image/png',
+         width = 650,
+         height = 500,
+         alt = "This is alternate text")
+  }, deleteFile = F)
+  
   output$upload_note <- renderText({
     #print(rownames(getMyd()))
     #print(rownames(getSampleInfo()))
