@@ -309,6 +309,9 @@ function(input, output,session) {
     dat<-as.matrix(dat)
     result<-combat(dat,batch , mod = mod, par.prior=input$par.prior, fit.method="mle",  
                       mean.only = input$mean.only, ref.batch = NULL, BPPARAM = bpparam("SerialParam")) 
+    if(length(result)==1){
+      stop(result)
+      }
     incProgress(9/10,"Completed")
                  })
     },silent = T)
