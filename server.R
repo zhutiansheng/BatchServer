@@ -344,7 +344,7 @@ function(input, output,session) {
   output$combat_ui <- renderUI({
     if(length(eliminateBF())>1){
       tagList(
-        downloadButton("cleanData_download", "getResult", class = "btn-primary"),
+        
         selectInput("batch_para_name","Select batch level to show whether it is reasonable",
                     choices = names(eliminateBF()$additiondata$passTest),
                     selected = NULL),
@@ -361,6 +361,7 @@ function(input, output,session) {
                        "NA" = 'NA'
                      ),inline = TRUE,selected = "0"),
         checkboxInput("asOrgi", "Replace values with NAs as the original data matrix", TRUE,width='50%'),
+        downloadButton("cleanData_download", "getResult", class = "btn-primary"),
       )
     }
   })
