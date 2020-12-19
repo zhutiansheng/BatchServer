@@ -218,7 +218,7 @@ mean of the batch effects across batches (default adjusts the mean and variance)
             HTML("Tiansheng Zhu; tszhu @ fudan.edu.cn"),
             h3("License:"),            
             HTML("BatchServer is an open-source software implemented in pure R language and the source code is freely available at https://github.com/zhutiansheng/BatchServer. 
-Now Batch Server is supported by both school of computer science of Fudan University (zhou's lab: admis.fudan.edu.cn) and school of life sciences of Westlake University (guo's lab: www.guomics.com). The software is published by <Journal of Proteome Research> with  assigned DOI: 10.1021/acs.jproteome.0c00488.")         
+Now Batch Server is supported by both school of computer science of Fudan University (zhou's lab: admis.fudan.edu.cn) and school of life sciences of Westlake University (guo's lab: www.guomics.com). The software is published by <i>Journal of Proteome Research</i> with  assigned DOI: 10.1021/acs.jproteome.0c00488.")         
     )
   )
 )
