@@ -169,11 +169,10 @@ combat<-function (dat, batch, mod = NULL, par.prior="auto", fit.method="mle",
   isNorm<-function(d,bar,t2){
     tryCatch({
       f1 <- fitdist(d, "norm")
-      g1 <- gofstat(f1)
-    },
-    error = function(e) {
+      g1 <- try(gofstat(f1))  
+      if("try-error" %in% class(g1)) {
       return(FALSE)
-    })
+    }
     if(g1$kstest!="not rejected"){
       return(FALSE)
     }

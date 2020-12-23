@@ -31,6 +31,21 @@ function(input, output,session) {
     )
   })
   
+    output$myImage <- renderImage({
+    # A temp file to save the output.
+    # This file will be removed later by renderImage
+    outfile <- normalizePath(file.path('help/architecture.png'))
+    
+    
+    
+    # Return a list containing the filename
+    list(src = outfile,
+         contentType = 'image/png',
+         width = 650,
+         height = 500,
+         alt = "This is alternate text")
+  }, deleteFile = F)
+  
   output$upload_note <- renderText({
     #print(rownames(getMyd()))
     #print(rownames(getSampleInfo()))
@@ -214,7 +229,8 @@ function(input, output,session) {
     print("umap start")
     myd<-getMyd()
     myd<-missingValueReplace(myd,input$missing_replace)
-    myumap<-try(umap(myd,n_neighbors=input$n_neighbors),silent = T)
+    myumap<-try(umap(myd,n_neighbors=input$n_neighbors,metric=input$metric,n_epochs=input$n_epochs,init=input$init,min_dist=input$min_dist,alpha=input$alpha,
+                     gamma=input$gamma,negative_sample_rate=input$negative_sample_rate),silent = T)
     if("try-error" %in% class(myumap)){
       showModal(modalDialog(
         title = "An error occur",
@@ -294,6 +310,9 @@ function(input, output,session) {
     dat<-as.matrix(dat)
     result<-combat(dat,batch , mod = mod, par.prior=input$par.prior, fit.method="mle",  
                       mean.only = input$mean.only, ref.batch = NULL, BPPARAM = bpparam("SerialParam")) 
+    if(length(result)==1){
+      stop(result)
+      }
     incProgress(9/10,"Completed")
                  })
     },silent = T)
@@ -326,7 +345,7 @@ function(input, output,session) {
   output$combat_ui <- renderUI({
     if(length(eliminateBF())>1){
       tagList(
-        downloadButton("cleanData_download", "getResult", class = "btn-primary"),
+        
         selectInput("batch_para_name","Select batch level to show whether it is reasonable",
                     choices = names(eliminateBF()$additiondata$passTest),
                     selected = NULL),
@@ -343,6 +362,7 @@ function(input, output,session) {
                        "NA" = 'NA'
                      ),inline = TRUE,selected = "0"),
         checkboxInput("asOrgi", "Replace values with NAs as the original data matrix", TRUE,width='50%'),
+        downloadButton("cleanData_download", "getResult", class = "btn-primary"),
       )
     }
   })

@@ -22,7 +22,8 @@ body <- dashboardBody(
   tabItems(
     tabItem(tabName = "home",
             #h2("Welcome to Batch Server home"),
-            includeMarkdown("help/main.Rmd")
+            includeMarkdown("help/main.Rmd"),
+	    imageOutput("myImage",width=650,height=500)
             #HTML('<p class="MsoNormal">Batch effects are unwanted sources of variation irrelevant to biological variation inevitably introduced to the samples during experimental handling which would obscure the biological signal. Batch effects are one of the biggest challenges faced by high throughput omics science, especially in the context of large cohort of thousands of samples. Existing batch effect-correcting tools focus mainly on the development of methods that are not convenience of use, usually requiring extensive coding experiences, sometimes even need to know the prior distribution of the data. Moreover, few tools offer both evaluation and correction of batch effects. We developed an open-source web server-based batch effect correction tool, namely BatchServer, which enables users to interactively evaluate and correct batch effects of a variety of omics data.')
     ),
     
@@ -217,7 +218,7 @@ mean of the batch effects across batches (default adjusts the mean and variance)
             HTML("Tiansheng Zhu; tszhu @ fudan.edu.cn"),
             h3("License:"),            
             HTML("BatchServer is an open-source software implemented in pure R language and the source code is freely available at https://github.com/zhutiansheng/BatchServer. 
-Now Batch Server is supported by both school of computer science of Fudan University (zhou's lab: admis.fudan.edu.cn) and school of life sciences of Westlake University (guo's lab: www.guomics.com). The software is published by ''")         
+Now Batch Server is supported by both school of computer science of Fudan University (zhou's lab: admis.fudan.edu.cn) and school of life sciences of Westlake University (guo's lab: www.guomics.com). The software is published by <i>Journal of Proteome Research</i> with  assigned DOI: 10.1021/acs.jproteome.0c00488.")         
     )
   )
 )
