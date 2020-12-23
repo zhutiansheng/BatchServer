@@ -229,7 +229,8 @@ function(input, output,session) {
     print("umap start")
     myd<-getMyd()
     myd<-missingValueReplace(myd,input$missing_replace)
-    myumap<-try(umap(myd,n_neighbors=input$n_neighbors),silent = T)
+    myumap<-try(umap(myd,n_neighbors=input$n_neighbors,metric=input$metric,n_epochs=input$n_epochs,init=input$init,min_dist=input$min_dist,alpha=input$alpha,
+                     gamma=input$gamma,negative_sample_rate=input$negative_sample_rate),silent = T)
     if("try-error" %in% class(myumap)){
       showModal(modalDialog(
         title = "An error occur",
