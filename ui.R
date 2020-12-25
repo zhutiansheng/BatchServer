@@ -56,7 +56,7 @@ body <- dashboardBody(
                          "minimum" = "minimum"
                        ),inline = TRUE,selected = "0"),  
           checkboxInput("qn", "Quantile normalization", TRUE),
-          checkboxInput("log2", "Log2 transform", TRUE), 
+          checkboxInput("log2", "Log2 transform", FALSE), 
             # Horizontal line ----
             tags$hr(),
             # Input: Select a file ----
