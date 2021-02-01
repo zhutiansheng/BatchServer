@@ -17,4 +17,4 @@ BiocManager::install(c("sva","Biobase","pvca","preprocessCore"))
 # Running
 Set the working directory as the path of app.R and run the app.R in R enviroment. 
 #  Reporting problems
- If you have any problem, please report it at gitHub issue tracker https://github.com/zhutiansheng/batch_server/issues
+ If you have any problem, please report it at gitHub issue tracker https://github.com/zhutiansheng/BatchServer/issues
