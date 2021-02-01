@@ -76,7 +76,7 @@ function(input, output,session) {
     else{
       myd<-read.table(input$myd$datapath,sep = input$sep,header = T,quote = "",encoding = "UTF-8",check.names = F)  
       }  
-    error<-dataCheck(myd)
+    error<-dataCheck(myd,input$missing_replace_input)
     if(!is.null(error)){
       showModal(modalDialog(
         title = "Error message for data upload",error))
