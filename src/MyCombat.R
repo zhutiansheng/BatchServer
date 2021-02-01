@@ -170,6 +170,7 @@ combat<-function (dat, batch, mod = NULL, par.prior="auto", fit.method="mle",
     tryCatch({
       f1 <- fitdist(d, "norm")
       g1 <- try(gofstat(f1))  
+      })
       if("try-error" %in% class(g1)) {
       return(FALSE)
     }
