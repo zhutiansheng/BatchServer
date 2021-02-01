@@ -10,9 +10,9 @@ library(devtools)
 #### Install packages on CRAN
 install.packages(c("shiny","shinydashboard","fitdistrplus", "extraDistr","umap","ggplot2","plotly","openxlsx"))
 #### Packages on Bioconductor
-source("http://bioconductor.org/biocLite.R")
-
-biocLite(c("sva","Biobase","pvca","preprocessCore")) 
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install(c("sva","Biobase","pvca","preprocessCore"))
 
 # Running
 Set the working directory as the path of app.R and run the app.R in R enviroment. 
