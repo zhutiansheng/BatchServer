@@ -27,7 +27,7 @@ source('src/MyPriorDraw.R')
 environment(drawPrior) <- asNamespace('sva')
 source("src/MyRandomForest.R")
 effect_name="Please upload your sample information file"
-dataCheck<-function(d){
+dataCheck<-function(d,v="none"){
   error=NULL
   if(ncol(d)<2){
     error="Error: You may  set wrong separator!"
@@ -35,7 +35,7 @@ dataCheck<-function(d){
   else if(sum(duplicated(d[,1]))>0){
     error="Error: The first column should be unique sample id/name!"
   }
-  else{
+  else if(v=="none"){
     cna<-apply(d[,-1], 1, function(x){sum(is.na(x))})
     if(max(cna)==ncol(d[,-1])){
       error = "Error: There exists feature (eg. prottein or gene) with all values are NA in the data matrix"
