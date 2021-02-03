@@ -1,7 +1,3 @@
-#### 
-
-![image.png](architecture.png)
-	
 ####  BatchSerer is a web server for batch effect evaluation, visualization and correction. 
 ####  It's mainly based on following R packages, which are further wrapped by [`R/Shiny`]('http://shiny.rstudio.com/').
 > + `pvca`:  For batch effects evaluation
