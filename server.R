@@ -135,7 +135,7 @@ function(input, output,session) {
                    else{               
                       myd<-read.table(input$sample_info$datapath,sep = input$sample_sep,header = T,quote = "",encoding = "UTF-8",check.names = F)  
                    }  
-    error<-dataCheck(myd)
+    error<-dataCheck(myd,0)
     if(!is.null(error)){
       showModal(modalDialog(
         title = "Error message for sample upload",error))
